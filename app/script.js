@@ -1,5 +1,6 @@
 var chars = "qwertzuiopasdfghjklyxcvbnmQWERTZUIOPADFGHJKLXCVBNM1234567890"
 var ws = new WebSocket("ws://localhost:8080")
+//var ws = new WebSocket("wss://zl6rrt5t-80.euw.devtunnels.ms")
 var form = document.getElementById("form")
 var input = document.querySelector("textarea")
 var msgs = document.getElementById("msgs")
@@ -24,7 +25,10 @@ ws.onopen = async () => {
         password: localStorage.getItem("_.password"),
         room: document.location.pathname
     }))
-    var data = await fetch(`${document.location.origin}/GetChatt?room=${document.location.pathname}`)
+    var getChattURL = new URL(document.location.origin)
+    getChattURL.pathname = "/GetChatt"
+    getChattURL.searchParams.set("room", document.location.pathname)
+    var data = await fetch(getChattURL)
     var massages = await data.json()
     massages.reverse()
     massages.forEach(massage => {

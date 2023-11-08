@@ -65,6 +65,7 @@ wss.on("connection", socket => {
     function close() {
         try {
             delete obj.room[room][id]
+            socket.close()
         } catch (error) {
 
         }
@@ -105,31 +106,29 @@ require("http").createServer((req, res) => {
         res.end()
     } else {
         if (url.pathname == "/GetChatt") {
-            try {
-                res.writeHead(200, { "content-type": "application/json" })
-                res.end(JSON.stringify(obj.massages[url.searchParams.get("room")]))
-                return
-            } catch (error) {
-                return res.end("[]")
-            }
+            res.writeHead(200, { "content-type": "application/json" })
+            res.end(JSON.stringify(obj.massages[url.searchParams.get("room")]))
+            return res.end()
         }
-        try {
-            var ext = path.parse("." + url.pathname).ext
-            switch (ext) {
-                case ".js":
-                    res.writeHead(200, { "content-type": "text/javascript" })
-                    break;
-                case ".css":
-                    res.writeHead(200, { "content-type": "text/css" })
-                    break;
-                default:
-                    res.writeHead(200, { "content-type": "text/html" })
-                    break;
+        else {
+            try {
+                var ext = path.parse("." + url.pathname).ext
+                switch (ext) {
+                    case ".js":
+                        res.writeHead(200, { "content-type": "text/javascript" })
+                        break;
+                    case ".css":
+                        res.writeHead(200, { "content-type": "text/css" })
+                        break;
+                    default:
+                        res.writeHead(200, { "content-type": "text/html" })
+                        break;
+                }
+                res.end(fs.readFileSync("app" + url.pathname))
+            } catch (error) {
+                res.writeHead(200, { "content-type": "text/html" })
+                res.end(fs.readFileSync("app/index.html"))
             }
-            res.end(fs.readFileSync("app" + url.pathname))
-        } catch (error) {
-            res.writeHead(200, { "content-type": "text/html" })
-            res.end(fs.readFileSync("app/index.html"))
         }
     }
 }).listen(80)
