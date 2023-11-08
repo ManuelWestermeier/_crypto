@@ -1,0 +1,72 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    word-wrap: break-word;
+    transition: all 0.3s linear;
+}
+
+body {
+    overflow: hidden;
+}
+
+.msg {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid;
+    position: relative;
+    padding-bottom: 20px;
+}
+
+.msg .header {
+    position: absolute;
+    bottom: 0px;
+    right: 10px;
+    height: 20px;
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+    text-justify: center;
+}
+
+#msgs {
+    height: 80vh;
+    overflow-y: scroll;
+    width: 100%;
+}
+
+form {
+    width: calc(100% - 40px);
+    height: calc(20vh - 40px);
+    padding: 10px;
+    margin: 10px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 0px 20px 20px black;
+    background-color: black;
+}
+
+form textarea {
+    width: 80%;
+    height: 80%;
+    max-height: 100px;
+    resize: none;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+form button {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 5px;
+    border: none;
+}
+
+:focus{
+    outline: none;
+    box-shadow: 0px 0px 15px 2px dodgerblue;
+}
